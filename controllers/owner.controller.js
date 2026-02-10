@@ -37,6 +37,32 @@ export const addCar = async (req, res) => {
   }
 };
 
+export const getSingleOwnerCar = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const car = await Car.findById(id);
+
+    if (!car) {
+      return res.status(404).json({
+        success: false,
+        message: "Car not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      car,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+
 export const getOwnersCars = async (req, res) => {
   try {
     const cars = await Car.find({ owner: req.user._id }).sort({ createdAt: -1 });
