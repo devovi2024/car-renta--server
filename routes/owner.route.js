@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/change-role", protect, chnageRoleToOwner);
 router.post("/add-car", protect, upload.single("image"), addCar);
 
-router.get("/cars", protect, getOwnersCars);
+router.get("/cars", getOwnersCars);
 router.get("/car/:id", getSingleOwnerCar);
 router.put("/toggle/:id", protect, toggleCarAvailability);
 router.delete("/car/:id", protect, deleteCar);

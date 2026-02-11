@@ -65,12 +65,16 @@ export const getSingleOwnerCar = async (req, res) => {
 
 export const getOwnersCars = async (req, res) => {
   try {
+    console.log("User in request:", req.user);
     const cars = await Car.find({ owner: req.user._id }).sort({ createdAt: -1 });
+    console.log("Cars fetched:", cars);
     res.json({ success: true, cars });
-  } catch {
+  } catch (error) {
+    console.error("Error in getOwnersCars:", error);
     res.status(500).json({ success: false, message: "Failed to fetch cars" });
   }
 };
+
 
 export const toggleCarAvailability = async (req, res) => {
   try {
